@@ -13,10 +13,10 @@ streamlit-ace
 streamlit-discourse
 streamlit-disqus
 streamlit-elements
-streamlit-pandas-profiling
+#streamlit-pandas-profiling
 streamlit-player
 streamlit-quill
 
 # Dependencies
-pandas-profiling
+#pandas-profiling
 requests
