@@ -31,15 +31,6 @@ def main():
             for label, emoji_label in button_labels.items():
                 if st.button(emoji_label):
                     select_feature(label)
-
-        # with st.expander("✨ APPS", True):
-        #     page.item("Streamlit gallery", apps.gallery, default=True)
-
-        # with st.expander(" ", True):
-        #     st.button("Feature Transformation")
-        #     st.button("Feature Construction")
-        #     st.button("Feature Selection")
-        #     st.button("Feature Extraction")
         
     if st.session_state["Home"]:
         st.subheader("Feature Engineering is the process of using domain knowledge to extract features from raw data. Those features can be used to improve the performance of machine learning algorithms.")
@@ -59,9 +50,9 @@ def main():
     else:
         for label in button_labels.keys():
             if st.session_state[label] == "Feature Transformation":
-                st.write(f"**Selected Technique:** {label}")
+                st.write("Hello")
             else:
-                st.write({label})
+                st.write("byee")
 
     # st.caption("Click on the sidebar to try the practical implementation of each type")
 
