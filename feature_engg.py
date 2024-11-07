@@ -12,7 +12,6 @@ def main():
         #     page.item("Streamlit gallery", apps.gallery, default=True)
 
         with st.expander(" ", True):
-            st.button("Feature Engineering")
             st.button("Feature Transformation")
             st.button("Feature Construction")
             st.button("Feature Selection")
