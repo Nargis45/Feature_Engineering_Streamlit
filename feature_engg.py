@@ -22,11 +22,9 @@ def main():
         st.title("Feature Engineering")
 
         with st.expander(" ", True):
-            # Define each button with equal size
-            cols = st.columns(1)
             for label, emoji_label in button_labels.items():
-                if cols[0].button(emoji_label, key=label):
-                    # Reset all buttons, then set the clicked button to True
+                if st.button(emoji_label, key=label):
+                    # Reset all buttons to False, then set the clicked button to True
                     for key in button_labels.keys():
                         st.session_state[key] = (key == label)
 
