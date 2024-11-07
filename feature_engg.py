@@ -12,7 +12,7 @@ def main():
         #     page.item("Streamlit gallery", apps.gallery, default=True)
 
         with st.expander("🧩 COMPONENTS", True):
-            st.link_button("Ace editor")
+            st.button("Ace editor")
             st.button("Disqus")
             st.button("Elements⭐")
             st.button("Pandas profiling")
