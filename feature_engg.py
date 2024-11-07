@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_gallery import apps
 from streamlit_gallery.utils.page import page_group
+from annotated_text import annotation
 
 def main():
     page = page_group("p")
@@ -27,6 +28,10 @@ def main():
         st.warning("Feature Selection is selecting important features from the given features to improve model performance.")
     with st.expander("4. Feature Extraction"):
         st.error("Feature Extraction is creating completely new features out of the given features.")
+
+    annotated_text.annotated_text( 
+            annotation("Click on the sidebar to try the practical implementation of each type", border='3px groove yellow')
+        )
 
     st.caption("Click on the sidebar to try the practical implementation of each type")
 
