@@ -1,1 +1,8 @@
-
+streamlit
+matplotlib==3.6.3
+plotly==5.14.1
+TIME-python
+streamlit_extras
+st-annotated-text
+streamlit-card
+bokeh==2.4.3
