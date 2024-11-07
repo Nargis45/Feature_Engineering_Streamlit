@@ -19,10 +19,10 @@ def main():
 
     st.subheader("Feature Engineering is the process of using domain knowledge to extract features from raw data. Those features can be used to improve the performance of machine learning algorithms.")
     st.title("Types of Feature Engineering:")
-    st.write("1. Feature Transformation")
-    st.write("2. Feature Construction")
-    st.write("3. Feature Selection")
-    st.write("4. Feature Extraction")
+    st.success("1. Feature Transformation")
+    st.info("2. Feature Construction")
+    st.warning("3. Feature Selection")
+    st.error("4. Feature Extraction")
 
 if __name__ == "__main__":
     st.set_page_config(page_title="Streamlit Gallery by Okld", page_icon="🎈", layout="wide")
