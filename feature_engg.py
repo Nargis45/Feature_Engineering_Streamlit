@@ -49,7 +49,7 @@ def main():
             )
     else:
         for label in button_labels.keys():
-            if st.session_state[label] == "Feature Transformation":
+            if st.session_state["Feature Transformation"]:
                 st.write("Hello")
                 break
             else:
