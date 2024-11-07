@@ -11,13 +11,12 @@ def main():
         # with st.expander("✨ APPS", True):
         #     page.item("Streamlit gallery", apps.gallery, default=True)
 
-        with st.expander(" "):
-            st.button("Ace editor")
-            st.button("Disqus")
-            st.button("Elements⭐")
-            st.button("Pandas profiling")
-            st.button("Quill editor")
-            st.button("React player")
+        with st.expander(" ", True):
+            st.button("Feature Engineering")
+            st.button("Feature Transformation")
+            st.button("Feature Construction")
+            st.button("Feature Selection")
+            st.button("Feature Extraction")
 
 if __name__ == "__main__":
     st.set_page_config(page_title="Streamlit Gallery by Okld", page_icon="🎈", layout="wide")
