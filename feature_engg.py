@@ -13,13 +13,13 @@ def main():
             "Feature Selection": "🔍 Feature Selection",
             "Feature Extraction": "📊 Feature Extraction"
         }
+    
+    for label in button_labels.keys():
+            if label not in st.session_state:
+                st.session_state[label] = False
 
     with st.sidebar:
         st.title("Feature Engineering")
-
-        for label in button_labels.keys():
-            if label not in st.session_state:
-                st.session_state[label] = False
 
         with st.expander(" ", True):
             # Define each button with equal size
