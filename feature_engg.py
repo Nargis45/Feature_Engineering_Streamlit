@@ -18,15 +18,18 @@ def main():
             if label not in st.session_state:
                 st.session_state[label] = False
 
+    def select_feature(label):
+        # Reset all buttons to False, then set the clicked button to True
+        for key in button_labels.keys():
+            st.session_state[key] = (key == label)
+
     with st.sidebar:
         st.title("Feature Engineering")
 
         with st.expander(" ", True):
             for label, emoji_label in button_labels.items():
-                if st.button(emoji_label, key=label):
-                    # Reset all buttons to False, then set the clicked button to True
-                    for key in button_labels.keys():
-                        st.session_state[key] = (key == label)
+                if st.button(emoji_label):
+                    select_feature(label)
 
     for label in button_labels.keys():
         if st.session_state[label]:
