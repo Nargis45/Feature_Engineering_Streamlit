@@ -7,19 +7,19 @@ import annotated_text
 def main():
     page = page_group("p")
 
-    button_labels = {
+    with st.sidebar:
+        st.title("Feature Engineering")
+
+        button_labels = {
             "Feature Transformation": "🔄 Feature Transformation",
             "Feature Construction": "🔧 Feature Construction",
             "Feature Selection": "🔍 Feature Selection",
             "Feature Extraction": "📊 Feature Extraction"
         }
 
-    for label in button_labels.keys():
-        if label not in st.session_state:
-            st.session_state[label] = False
-
-    with st.sidebar:
-        st.title("Feature Engineering")
+        for label in button_labels.keys():
+            if label not in st.session_state:
+                st.session_state[label] = False
 
         with st.expander(" ", True):
             # Define each button with equal size
