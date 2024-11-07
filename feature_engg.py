@@ -7,17 +7,43 @@ import annotated_text
 def main():
     page = page_group("p")
 
+    button_labels = {
+            "Feature Transformation": "🔄 Feature Transformation",
+            "Feature Construction": "🔧 Feature Construction",
+            "Feature Selection": "🔍 Feature Selection",
+            "Feature Extraction": "📊 Feature Extraction"
+        }
+
+    for label in button_labels.keys():
+        if label not in st.session_state:
+            st.session_state[label] = False
+
     with st.sidebar:
         st.title("Feature Engineering")
+
+        with st.expander(" ", True):
+        # Define each button with equal size
+        cols = st.columns(1)
+        for label, emoji_label in button_labels.items():
+            if cols[0].button(emoji_label, key=label):
+                # Reset all buttons, then set the clicked button to True
+                for key in button_labels.keys():
+                    st.session_state[key] = (key == label)
+
+    for label in button_labels.keys():
+        if st.session_state[label]:
+            st.write(f"**Selected Technique:** {label}")
+            break
 
         # with st.expander("✨ APPS", True):
         #     page.item("Streamlit gallery", apps.gallery, default=True)
 
-        with st.expander(" ", True):
-            st.button("Feature Transformation")
-            st.button("Feature Construction")
-            st.button("Feature Selection")
-            st.button("Feature Extraction")
+        # with st.expander(" ", True):
+        #     st.button("Feature Transformation")
+        #     st.button("Feature Construction")
+        #     st.button("Feature Selection")
+        #     st.button("Feature Extraction")
+        
 
     st.subheader("Feature Engineering is the process of using domain knowledge to extract features from raw data. Those features can be used to improve the performance of machine learning algorithms.")
     st.title("Types of Feature Engineering:")
