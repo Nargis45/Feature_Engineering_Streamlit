@@ -7,3 +7,16 @@ st-annotated-text
 streamlit-card
 bokeh==2.4.3
 streamlit-navigation-bar
+
+# Streamlit components
+streamlit-ace
+streamlit-discourse
+streamlit-disqus
+streamlit-elements
+streamlit-pandas-profiling
+streamlit-player
+streamlit-quill
+
+# Dependencies
+pandas-profiling
+requests
