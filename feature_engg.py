@@ -19,8 +19,6 @@ def main():
             st.button("Quill editor")
             st.button("React player")
 
-    page.show()
-
 if __name__ == "__main__":
     st.set_page_config(page_title="Streamlit Gallery by Okld", page_icon="🎈", layout="wide")
     main()
