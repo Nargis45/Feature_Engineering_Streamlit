@@ -11,15 +11,15 @@ def main():
         st.title("🎈 Okld's Gallery")
 
         with st.expander("✨ APPS", True):
-            page.item("Streamlit gallery", apps.gallery, default=True)
+            page.item("Streamlit gallery", apps.gallery)
 
         with st.expander("🧩 COMPONENTS", True):
-            st.write("Ace editor")
-            st.write("Disqus")
-            st.write("Elements⭐")
-            st.write("Pandas profiling")
-            st.write("Quill editor")
-            st.write("React player")
+            st.button("Ace editor")
+            st.button("Disqus")
+            st.button("Elements⭐")
+            st.button("Pandas profiling")
+            st.button("Quill editor")
+            st.button("React player")
 
     page.show()
 
