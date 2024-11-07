@@ -11,7 +11,7 @@ def main():
         # with st.expander("✨ APPS", True):
         #     page.item("Streamlit gallery", apps.gallery, default=True)
 
-        with st.expander("🧩 COMPONENTS", True):
+        with st.expander(" "):
             st.button("Ace editor")
             st.button("Disqus")
             st.button("Elements⭐")
