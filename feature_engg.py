@@ -17,7 +17,7 @@ def main():
             st.button("Feature Selection")
             st.button("Feature Extraction")
 
-        st.write("Feature Engineering is the process of using domain knowledge to extract features from raw data. Those features can be used to improve the performance of machine learning algorithms.")
+    st.write("Feature Engineering is the process of using domain knowledge to extract features from raw data. Those features can be used to improve the performance of machine learning algorithms.")
 
 if __name__ == "__main__":
     st.set_page_config(page_title="Streamlit Gallery by Okld", page_icon="🎈", layout="wide")
