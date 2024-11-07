@@ -8,11 +8,11 @@ def main():
     with st.sidebar:
         st.title("Feature Engineering")
 
-        with st.expander("✨ APPS", True):
-            page.item("Streamlit gallery", apps.gallery, default=True)
+        # with st.expander("✨ APPS", True):
+        #     page.item("Streamlit gallery", apps.gallery, default=True)
 
         with st.expander("🧩 COMPONENTS", True):
-            st.button("Ace editor")
+            st.link_button("Ace editor")
             st.button("Disqus")
             st.button("Elements⭐")
             st.button("Pandas profiling")
