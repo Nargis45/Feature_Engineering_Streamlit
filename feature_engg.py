@@ -11,7 +11,7 @@ def main():
         st.title("🎈 Okld's Gallery")
 
         with st.expander("✨ APPS", True):
-            page.write("Streamlit gallery")
+            page.item("Streamlit gallery", apps.gallery, default=True)
 
         with st.expander("🧩 COMPONENTS", True):
             st.button("Ace editor")
