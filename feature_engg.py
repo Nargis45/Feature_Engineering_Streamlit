@@ -1,6 +1,4 @@
 import streamlit as st
-from streamlit_navigation_bar import st_navbar
-
 from streamlit_gallery import apps
 from streamlit_gallery.utils.page import page_group
 
@@ -8,7 +6,7 @@ def main():
     page = page_group("p")
 
     with st.sidebar:
-        st.title("🎈 Okld's Gallery")
+        st.title("Feature Engineering")
 
         with st.expander("✨ APPS", True):
             page.item("Streamlit gallery", apps.gallery, default=True)
