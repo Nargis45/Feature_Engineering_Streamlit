@@ -7,15 +7,15 @@ import annotated_text
 def main():
     page = page_group("p")
 
-    with st.sidebar:
-        st.title("Feature Engineering")
-
-        button_labels = {
+    button_labels = {
             "Feature Transformation": "🔄 Feature Transformation",
             "Feature Construction": "🔧 Feature Construction",
             "Feature Selection": "🔍 Feature Selection",
             "Feature Extraction": "📊 Feature Extraction"
         }
+
+    with st.sidebar:
+        st.title("Feature Engineering")
 
         for label in button_labels.keys():
             if label not in st.session_state:
