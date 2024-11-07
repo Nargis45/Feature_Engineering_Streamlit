@@ -21,9 +21,12 @@ def main():
     st.title("Types of Feature Engineering:")
     with st.expander("1. Feature Transformation"):
         st.success("1. Feature Transformation")
-    st.info("2. Feature Construction")
-    st.warning("3. Feature Selection")
-    st.error("4. Feature Extraction")
+    with st.expander("2. Feature Construction"):
+        st.info("2. Feature Construction")
+    with st.expander("3. Feature Selection"):
+        st.warning("3. Feature Selection")
+    with st.expander("4. Feature Extraction"):
+        st.error("4. Feature Extraction")
 
 if __name__ == "__main__":
     st.set_page_config(page_title="Streamlit Gallery by Okld", page_icon="🎈", layout="wide")
