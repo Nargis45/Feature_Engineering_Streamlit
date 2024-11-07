@@ -32,7 +32,6 @@ def main():
 
     annotated_text.annotated_text( 
             annotation("Click on the sidebar to try the practical implementation of each type", color='#07a631'),
-            annotation("Click on the sidebar to try the practical implementation of each type", border='3px groove yellow')
         )
 
     # st.caption("Click on the sidebar to try the practical implementation of each type")
