@@ -2,6 +2,7 @@ import streamlit as st
 from streamlit_gallery import apps
 from streamlit_gallery.utils.page import page_group
 from annotated_text import annotation
+import annotated_text 
 
 def main():
     page = page_group("p")
