@@ -31,10 +31,11 @@ def main():
         st.error("Feature Extraction is creating completely new features out of the given features.")
 
     annotated_text.annotated_text( 
+            annotation("Click on the sidebar to try the practical implementation of each type", color='#07a631'),
             annotation("Click on the sidebar to try the practical implementation of each type", border='3px groove yellow')
         )
 
-    st.caption("Click on the sidebar to try the practical implementation of each type")
+    # st.caption("Click on the sidebar to try the practical implementation of each type")
 
 if __name__ == "__main__":
     st.set_page_config(page_title="Streamlit Gallery by Okld", page_icon="🎈", layout="wide")
