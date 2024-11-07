@@ -58,9 +58,10 @@ def main():
             )
     else:
         for label in button_labels.keys():
-            if st.session_state[label]:
+            if st.session_state[label] == Feature Transformation:
                 st.write(f"**Selected Technique:** {label}")
-                break
+            else:
+                st.write({label})
 
     # st.caption("Click on the sidebar to try the practical implementation of each type")
 
