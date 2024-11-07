@@ -19,7 +19,7 @@ def main():
 
     st.subheader("Feature Engineering is the process of using domain knowledge to extract features from raw data. Those features can be used to improve the performance of machine learning algorithms.")
     st.title("Types of Feature Engineering:")
-    with st.expander("1. Feature Transformation")
+    with st.expander("1. Feature Transformation"):
         st.success("1. Feature Transformation")
     st.info("2. Feature Construction")
     st.warning("3. Feature Selection")
