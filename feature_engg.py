@@ -1,7 +1,7 @@
 import streamlit as st
 from streamlit_navigation_bar import st_navbar
 
-from streamlit_gallery import apps, components
+from streamlit_gallery import apps
 from streamlit_gallery.utils.page import page_group
 
 def main():
@@ -14,12 +14,12 @@ def main():
             page.item("Streamlit gallery", apps.gallery, default=True)
 
         with st.expander("🧩 COMPONENTS", True):
-            page.item("Ace editor")
-            page.item("Disqus")
-            page.item("Elements⭐", components.elements)
-            page.item("Pandas profiling")
-            page.item("Quill editor")
-            page.item("React player")
+            st.write("Ace editor")
+            st.write("Disqus")
+            st.write("Elements⭐")
+            st.write("Pandas profiling")
+            st.write("Quill editor")
+            st.write("React player")
 
     page.show()
 
