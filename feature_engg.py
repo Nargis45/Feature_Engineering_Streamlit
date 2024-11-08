@@ -13,20 +13,15 @@ def main():
     }
 
     # Initialize session states for sidebar items
-    for label in sidebar_labels.keys():
-        if label not in st.session_state:
-            st.session_state[label] = (label == "Home")
+    if 'selected_feature' not in st.session_state:
+        st.session_state.selected_feature = "Home"
+    if 'selected_sub_option' not in st.session_state:
+        st.session_state.selected_sub_option = None
 
     def select_feature(label, sub_option=None):
-        # Reset all main feature states to False, then set the selected feature state to True
-        for key in sidebar_labels.keys():
-            st.session_state[key] = (key == label)
-
-        # Set selected sub-option if available
-        if sub_option:
-            st.session_state['selected_sub_option'] = sub_option
-        else:
-            st.session_state['selected_sub_option'] = None
+        # Set the selected feature and optionally the sub-option
+        st.session_state.selected_feature = label
+        st.session_state.selected_sub_option = sub_option
 
     with st.sidebar:
         st.title("Feature Engineering")
@@ -37,18 +32,18 @@ def main():
 
         # Expanders with radio buttons for each feature category
         for label in list(sidebar_labels.keys())[1:]:
-            with st.expander(sidebar_labels[label]):
-                if st.session_state[label]:  # Render radio buttons only when the category is selected
-                    selected_option = st.radio(
-                        f"Select an option for {label}",
-                        options=[f"{label} - Option 1", f"{label} - Option 2", f"{label} - Option 3"],
-                        key=f"radio_{label}"
-                    )
-                    if selected_option:
-                        select_feature(label, selected_option)
+            with st.expander(sidebar_labels[label], expanded=(st.session_state.selected_feature == label)):
+                selected_option = st.radio(
+                    f"Select an option for {label}",
+                    options=[f"{label} - Option 1", f"{label} - Option 2", f"{label} - Option 3"],
+                    key=f"radio_{label}"
+                )
+                # Update selected feature and sub-option when a radio button is selected
+                if selected_option:
+                    select_feature(label, selected_option)
 
     # Main content based on the selected sidebar option
-    if st.session_state["Home"]:
+    if st.session_state.selected_feature == "Home":
         st.subheader("Feature Engineering is the process of using domain knowledge to extract features from raw data. These features can improve machine learning algorithms.")
         st.title("Types of Feature Engineering:")
         
@@ -76,11 +71,10 @@ def main():
         )
 
     else:
-        for label in list(sidebar_labels.keys())[1:]:
-            if st.session_state[label]:
-                st.write(f"**Selected Technique:** {label}")
-                st.write(f"**Option:** {st.session_state.get('selected_sub_option', 'No option selected')}")
-                break
+        selected_feature = st.session_state.selected_feature
+        selected_option = st.session_state.selected_sub_option or "No option selected"
+        st.write(f"**Selected Technique:** {selected_feature}")
+        st.write(f"**Option:** {selected_option}")
 
 if __name__ == "__main__":
     st.set_page_config(page_title="Feature Engineering App", page_icon="🔧", layout="wide")
