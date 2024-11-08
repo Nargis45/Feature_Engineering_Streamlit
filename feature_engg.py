@@ -11,24 +11,23 @@ def main():
         "Feature Extraction": "📊 Feature Extraction"
     }
 
-    # Initialize session state for all options
+    # Initialize session state for selected feature
     if "selected_feature" not in st.session_state:
         st.session_state["selected_feature"] = "Home"  # Default to Home on first load
 
     # Sidebar for selecting features
     with st.sidebar:
         st.title("Feature Engineering")
-        
-        # Home button to reset selection to "Home"
-        if st.button(button_labels["Home"]):
-            st.session_state["selected_feature"] = "Home"
 
-        # Expanders for each feature engineering option
-        with st.expander("Explore Feature Engineering Options", expanded=True):
-            for label, emoji_label in button_labels.items():
-                if label != "Home":  # Exclude "Home" from the expander
-                    if st.checkbox(emoji_label, key=label, value=(st.session_state["selected_feature"] == label)):
-                        st.session_state["selected_feature"] = label
+        # Radio button for feature selection
+        selected_option = st.radio(
+            "Choose a feature engineering technique:",
+            options=list(button_labels.keys()),
+            format_func=lambda x: button_labels[x]
+        )
+        
+        # Update session state when the selected option changes
+        st.session_state["selected_feature"] = selected_option
 
     # Display content based on selected option in the sidebar
     if st.session_state["selected_feature"] == "Home":
