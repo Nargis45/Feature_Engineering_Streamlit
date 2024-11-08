@@ -36,13 +36,15 @@ def main():
         # Expanders with radio buttons for each feature category
         for label in list(sidebar_labels.keys())[1:]:
             with st.expander(sidebar_labels[label]):
-                selected_option = st.radio(
-                    f"Select an option for {label}",
-                    options=[f"{label} - Option 1", f"{label} - Option 2", f"{label} - Option 3"],
-                    key=label
-                )
-                if selected_option:
-                    select_feature(label, selected_option)
+                selected_option = None
+                if st.session_state[label]:  # Render radio only when a category is selected
+                    selected_option = st.radio(
+                        f"Select an option for {label}",
+                        options=[f"{label} - Option 1", f"{label} - Option 2", f"{label} - Option 3"],
+                        key=label
+                    )
+                    if selected_option:
+                        select_feature(label, selected_option)
     
     # Main content based on the selected sidebar option
     if st.session_state["Home"]:
