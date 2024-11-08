@@ -39,9 +39,9 @@ def main():
             st.success("Feature Transformation is a technique used to transform a feature/column by applying mathematical formula which is going to be useful for further analysis.")
             st.success("""Methods we can use in Feature Transformation:\n
                             - Missing value imputation\n
-                            - Handling categorical values\n
-                            - Outlier detection\n
-                            - Feature scaling""")
+- Handling categorical values\n
+- Outlier detection\n
+- Feature scaling""")
         with st.expander("2. Feature Construction"):
             st.info("Feature Construction is creating new feature using existing features.")
         with st.expander("3. Feature Selection"):
