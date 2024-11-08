@@ -14,19 +14,20 @@ def main():
 
     # Initialize session states for sidebar items
     if 'selected_feature' not in st.session_state:
-        st.session_state.selected_feature = "Home"
+        st.session_state.selected_feature = "Home"  # Default to "Home" content
     if 'selected_sub_option' not in st.session_state:
         st.session_state.selected_sub_option = None
 
     def select_feature(label, sub_option=None):
-        # Set the selected feature and optionally the sub-option
-        st.session_state.selected_feature = label
-        st.session_state.selected_sub_option = sub_option
+        # Only update if the selection changes to prevent unwanted re-renders
+        if st.session_state.selected_feature != label or st.session_state.selected_sub_option != sub_option:
+            st.session_state.selected_feature = label
+            st.session_state.selected_sub_option = sub_option
 
     with st.sidebar:
         st.title("Feature Engineering")
 
-        # Home button
+        # Home button - setting "Home" as the selected feature
         if st.button(sidebar_labels["Home"]):
             select_feature("Home")
 
@@ -36,11 +37,11 @@ def main():
                 selected_option = st.radio(
                     f"Select an option for {label}",
                     options=[f"{label} - Option 1", f"{label} - Option 2", f"{label} - Option 3"],
-                    key=f"radio_{label}"
+                    key=f"radio_{label}",
+                    index=0  # Default to the first option for each category
                 )
-                # Update selected feature and sub-option when a radio button is selected
-                if selected_option:
-                    select_feature(label, selected_option)
+                # Update selected feature and sub-option only when radio changes
+                select_feature(label, selected_option)
 
     # Main content based on the selected sidebar option
     if st.session_state.selected_feature == "Home":
@@ -71,6 +72,7 @@ def main():
         )
 
     else:
+        # Display content for the selected technique
         selected_feature = st.session_state.selected_feature
         selected_option = st.session_state.selected_sub_option or "No option selected"
         st.write(f"**Selected Technique:** {selected_feature}")
