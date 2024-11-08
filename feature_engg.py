@@ -37,6 +37,11 @@ def main():
         st.title("Types of Feature Engineering:")
         with st.expander("1. Feature Transformation"):
             st.success("Feature Transformation is a technique used to transform a feature/column by applying mathematical formula which is going to be useful for further analysis.")
+            st.success("""Methods we can use in Feature Transformation:
+                            Missing value imputation
+                            Handling categorical values
+                            Outlier detection
+                            Feature scaling""")
         with st.expander("2. Feature Construction"):
             st.info("Feature Construction is creating new feature using existing features.")
         with st.expander("3. Feature Selection"):
