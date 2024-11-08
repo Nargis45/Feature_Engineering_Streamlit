@@ -13,9 +13,6 @@ def main():
     }
     
     # Initialize session states for sidebar items
-    if 'selected_sub_option' not in st.session_state:
-        st.session_state['selected_sub_option'] = None
-    
     for label in sidebar_labels.keys():
         if label not in st.session_state:
             st.session_state[label] = (label == "Home")
@@ -35,19 +32,19 @@ def main():
         # Home button
         if st.button(sidebar_labels["Home"]):
             select_feature("Home")
-            st.session_state['selected_sub_option'] = None  # Clear sub-option selection on Home
 
         # Expanders with radio buttons for each feature category
         for label in list(sidebar_labels.keys())[1:]:
             with st.expander(sidebar_labels[label]):
-                selected_option = st.radio(
-                    f"Select an option for {label}",
-                    options=[f"{label} - Option 1", f"{label} - Option 2", f"{label} - Option 3"],
-                    key=label,
-                    index=0  # Default to the first option
-                )
-                if selected_option:
-                    select_feature(label, selected_option)
+                selected_option = None
+                if st.session_state[label]:  # Render radio only when a category is selected
+                    selected_option = st.radio(
+                        f"Select an option for {label}",
+                        options=[f"{label} - Option 1", f"{label} - Option 2", f"{label} - Option 3"],
+                        key=label
+                    )
+                    if selected_option:
+                        select_feature(label, selected_option)
     
     # Main content based on the selected sidebar option
     if st.session_state["Home"]:
