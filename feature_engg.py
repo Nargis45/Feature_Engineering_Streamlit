@@ -10,39 +10,37 @@ def main():
         "Feature Selection": "🔍 Feature Selection",
         "Feature Extraction": "📊 Feature Extraction"
     }
-    
-    for label in button_labels.keys():
-        if label not in st.session_state:
-            st.session_state[label] = (label == "Home")
 
-    def select_feature(label):
-        # Reset all buttons to False, then set the clicked button to True
-        for key in button_labels.keys():
-            st.session_state[key] = (key == label)
+    # Initialize session state for all options
+    if "selected_feature" not in st.session_state:
+        st.session_state["selected_feature"] = "Home"  # Default to Home on first load
 
+    # Sidebar for selecting features
     with st.sidebar:
         st.title("Feature Engineering")
-
-        # Separate "Home" button from the expander
+        
+        # Home button to reset selection to "Home"
         if st.button(button_labels["Home"]):
-            select_feature("Home")
+            st.session_state["selected_feature"] = "Home"
 
+        # Expanders for each feature engineering option
         with st.expander("Explore Feature Engineering Options", expanded=True):
             for label, emoji_label in button_labels.items():
                 if label != "Home":  # Exclude "Home" from the expander
-                    if st.button(emoji_label):
-                        select_feature(label)
-        
-    if st.session_state["Home"]:
+                    if st.checkbox(emoji_label, key=label, value=(st.session_state["selected_feature"] == label)):
+                        st.session_state["selected_feature"] = label
+
+    # Display content based on selected option in the sidebar
+    if st.session_state["selected_feature"] == "Home":
         st.subheader("Feature Engineering is the process of using domain knowledge to extract features from raw data. Those features can be used to improve the performance of machine learning algorithms.")
         st.title("Types of Feature Engineering:")
         with st.expander("1. Feature Transformation"):
             st.success("Feature Transformation is a technique used to transform a feature/column by applying mathematical formula which is going to be useful for further analysis.")
             st.success("""Methods we can use in Feature Transformation:\n
-    - Missing value imputation\n
-    - Handling categorical values\n
-    - Outlier detection\n
-    - Feature scaling""")
+                            - Missing value imputation\n
+                            - Handling categorical values\n
+                            - Outlier detection\n
+                            - Feature scaling""")
         with st.expander("2. Feature Construction"):
             st.info("Feature Construction is creating new feature using existing features.")
         with st.expander("3. Feature Selection"):
@@ -54,17 +52,9 @@ def main():
             annotation("Use the sidebar to explore each feature type.", color='#07a631')
         )
     else:
-        for label in button_labels.keys():
-            if st.session_state[label]:
-                if label == "Feature Transformation":
-                    st.write(f"**Selected Technique:** {label}")
-                elif label == "Feature Construction":
-                    st.write(f"**Selected Technique:** {label}")
-                elif label == "Feature Selection":
-                    st.write(f"**Selected Technique:** {label}")
-                elif label == "Feature Extraction":
-                    st.write(f"**Selected Technique:** {label}")
-                break
+        # Display the selected technique when not on "Home"
+        selected_feature = st.session_state["selected_feature"]
+        st.write(f"**Selected Technique:** {selected_feature}")
 
 if __name__ == "__main__":
     st.set_page_config(page_title="Streamlit Gallery by Okld", page_icon="🎈", layout="wide")
