@@ -161,8 +161,8 @@ def main():
                         if st.button('See Practical Example'):
                             view_resources()
                     st.write("""Effect on outliers:\n
-                                1. No effect on outliers\n
-    2. Outliers effect do not get reduced""")
+                                1. Outliers effect do not get reduced\n
+    2. Outliers can skew the mean and standard deviation, affecting the scaling.""")
                     st.write("""When to use:\n
                                 Standardization is essential for models that calculate distances between points or are sensitive to the magnitude of feature values\n
     Example: Support Vector Machines (SVM), K-Nearest Neighbors (KNN), Principal Component Analysis (PCA), K-Means Clustering, Neural Networks""")
