@@ -178,7 +178,7 @@ def main():
                             """)
                     @st.experimental_dialog(" ", width="large")
                     def view_resources():
-                        data = pd.read_csv('https://github.com/Nargis45/Feature_Engineering_Streamlit/blob/main/st.csv')
+                        data = pd.read_csv('https://raw.githubusercontent.com/Nargis45/Feature_Engineering_Streamlit/main/st.csv')
                         data = data.head()
                         col1, col2 = st.columns(2)
                         with col1:
@@ -322,7 +322,7 @@ def main():
                             """)
                     @st.experimental_dialog(" ", width="large")
                     def view_resources():
-                        data = pd.read_csv('https://github.com/Nargis45/Feature_Engineering_Streamlit/blob/main/st.csv')
+                        data = pd.read_csv('https://raw.githubusercontent.com/Nargis45/Feature_Engineering_Streamlit/main/st.csv')
                         data = data.head()
                         col1, col2 = st.columns(2)
                         with col1:
@@ -398,7 +398,7 @@ def main():
                             """)
                     @st.experimental_dialog(" ", width="large")
                     def view_resources():
-                        data = pd.read_csv('https://github.com/Nargis45/Feature_Engineering_Streamlit/blob/main/st.csv')
+                        data = pd.read_csv('https://raw.githubusercontent.com/Nargis45/Feature_Engineering_Streamlit/main/st.csv')
                         data = data.head()
                         col1, col2 = st.columns(2)
                         with col1:
@@ -475,7 +475,7 @@ def main():
 
                     @st.experimental_dialog(" ", width="large")
                     def view_resources():
-                        data = pd.read_csv('https://github.com/Nargis45/Feature_Engineering_Streamlit/blob/main/st.csv')
+                        data = pd.read_csv('https://raw.githubusercontent.com/Nargis45/Feature_Engineering_Streamlit/main/st.csv')
                         data = data.head()
                         col1, col2 = st.columns(2)
                         with col1:
@@ -551,7 +551,7 @@ def main():
 
                     @st.experimental_dialog(" ", width="large")
                     def view_resources():
-                        data = pd.read_csv('https://github.com/Nargis45/Feature_Engineering_Streamlit/blob/main/st.csv')
+                        data = pd.read_csv('https://raw.githubusercontent.com/Nargis45/Feature_Engineering_Streamlit/main/st.csv')
                         data = data.head()
                         col1, col2 = st.columns(2)
                         with col1:
