@@ -20,3 +20,5 @@ streamlit-quill
 # Dependencies
 #pandas-profiling
 requests
+
+scikit-learn
