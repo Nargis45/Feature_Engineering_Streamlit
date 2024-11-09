@@ -599,7 +599,34 @@ def main():
                     st.write("""When to use:\n
                                 Use when the data contains outliers, and you want a scaling technique that is robust and reduces their effect, such as when using algorithms that are sensitive to outliers (e.g., linear regression).""")
                 
-                with st.expander("Practice Questions:"):
+                st.divider()
+                st.subheader("Difference betwwen Standardization and Normalization:")
+                with st.expander("Open to see the difference"):
+                    data = {
+                        "Aspect": ["Definition", "Formula", "Scale", "Use cases", "Impact on Outliers"],
+                        "Standardization": [
+                            "Standardization (Z-score normalization) transforms the data to have a mean of 0 and a standard deviation of 1.",
+                            "(X - mean) / std_dev",
+                            "Data is centered around 0 with a standard deviation of 1. It does not bound the data within a specific range.",
+                            "Used when data follows a Gaussian distribution, or when the machine learning algorithm assumes data is normally distributed (e.g., Logistic Regression, SVM).",
+                            "Less sensitive to outliers. However, outliers can still affect the mean and standard deviation."
+                        ],
+                        "Normalization": [
+                            "Normalization (Min-Max scaling) rescales the data to fit within a specific range, typically [0, 1].",
+                            "(X - X_min) / (X_max - X_min)",
+                            "Data is scaled to a fixed range, typically between 0 and 1.",
+                            "Used when the algorithm requires data within a specific range (e.g., Neural Networks, KNN).",
+                            "Highly sensitive to outliers, as they can skew the min and max values."
+                        ]
+                    }
+
+                    # Convert the dictionary to a pandas DataFrame
+                    df = pd.DataFrame(data)
+                    st.table(df)
+
+                st.divider()
+                st.subheader("Practice Questions:")
+                with st.expander("Feature Scaling Questions:"):
                     questions = [
                         {
                             "question": "Which scaling technique should be used when the data contains significant outliers?",
@@ -705,7 +732,6 @@ def main():
 
                     # Function to display the quiz
                     def display_quiz():
-                        st.title("Feature Scaling Interview Questions")
                         score = 0
                         responses = []
                         incorrect_answers = []
@@ -758,7 +784,6 @@ def main():
                         st.session_state["test_done"] = False
 
                     display_quiz()
-
 
 
 
