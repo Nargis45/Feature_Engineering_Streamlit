@@ -713,16 +713,12 @@ def main():
                         # Loop through each question and display it
                         for i, question in enumerate(questions):
                             st.caption(f"Question {i+1}:")
-                            answer = st.radio(question["question"], options=question["options"], key=f"q{i}", disabled=st.session_state.get(f"q{i}_locked", False))
-
-                            # Lock the answer once selected
-                            if answer:
-                                st.session_state[f"q{i}_locked"] = True
-                            else:
-                                st.session_state[f"q{i}_locked"] = False
+                            
+                            # The key remains, but there's no locking of answers after selection
+                            answer = st.radio(question["question"], options=question["options"], key=f"q{i}")
 
                             # Check the answer and store whether it's correct or not
-                            if st.session_state.get(f"q{i}_locked", False):
+                            if answer:
                                 if answer == question["correct_answer"]:
                                     responses.append(True)
                                 else:
@@ -742,7 +738,7 @@ def main():
                                     st.divider()
                                     st.write(f"Question {question_number}: {question_text}")
                                     st.markdown(f"<span style='color:red'>Your Answer: {user_answer}</span>", unsafe_allow_html=True)
-                                    st.markdown(f"<span style='color:green'>Your Answer: {correct_answer}</span>", unsafe_allow_html=True)
+                                    st.markdown(f"<span style='color:green'>Correct Answer: {correct_answer}</span>", unsafe_allow_html=True)
                             else:
                                 st.write("Great job! You answered all questions correctly.")
 
