@@ -626,7 +626,7 @@ def main():
 
                 st.divider()
                 st.subheader("Practice Questions:")
-                with st.expander("Feature Scaling Questions:"):
+                with st.expander("Feature Scaling Questions"):
                     questions = [
                         {
                             "question": "Which scaling technique should be used when the data contains significant outliers?",
