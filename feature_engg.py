@@ -275,10 +275,9 @@ def main():
                 else:
                     # Load user-uploaded dataset
                     df = pd.read_csv(uploaded_file)
-                    st.session_state.df = df
 
                 st.write("Dataset Preview:")
-                st.dataframe(st.session_state.df, hide_index = True)
+                st.dataframe(df, hide_index = True)
 
                 # Select encoding technique
                 encoding_option = st.selectbox("Select Encoding Technique", 
@@ -287,13 +286,13 @@ def main():
                 # Handle encoding options
                 if encoding_option == "Label Encoding":
                     column_to_encode = st.selectbox("Select Column to Encode", st.session_state.df.columns)
-                    encoded_df = label_encode(st.session_state.df.copy(), column_to_encode)
+                    encoded_df = label_encode(df.copy(), column_to_encode)
                     st.write(f"Encoded Data (Label Encoding on {column_to_encode}):")
                     st.dataframe(encoded_df, hide_index=True)
 
                 elif encoding_option == "One-Hot Encoding":
                     column_to_encode = st.selectbox("Select Column to Encode", st.session_state.df.columns)
-                    encoded_df = one_hot_encode(st.session_state.df.copy(), column_to_encode)
+                    encoded_df = one_hot_encode(df.copy(), column_to_encode)
                     st.write(f"Encoded Data (One-Hot Encoding on {column_to_encode}):")
                     st.dataframe(encoded_df, hide_index=True)
 
@@ -301,19 +300,19 @@ def main():
                     column_to_encode = st.selectbox("Select Column to Encode", st.session_state.df.columns)
                     order = st.text_input("Enter the order for encoding (comma separated)", "Mild,Medium,Hot").split(',')
                     order = [x.strip() for x in order]  # Clean up the list
-                    encoded_df = ordinal_encode(st.session_state.df.copy(), column_to_encode, order)
+                    encoded_df = ordinal_encode(.df.copy(), column_to_encode, order)
                     st.write(f"Encoded Data (Ordinal Encoding on {column_to_encode}):")
                     st.dataframe(encoded_df, hide_index=True)
 
                 elif encoding_option == "Frequency Encoding":
                     column_to_encode = st.selectbox("Select Column to Encode", st.session_state.df.columns)
-                    encoded_df = frequency_encode(st.session_state.df.copy(), column_to_encode)
+                    encoded_df = frequency_encode(df.copy(), column_to_encode)
                     st.write(f"Encoded Data (Frequency Encoding on {column_to_encode}):")
                     st.dataframe(encoded_df, hide_index=True)
 
                 elif encoding_option == "Binary Encoding":
                     column_to_encode = st.selectbox("Select Column to Encode", st.session_state.df.columns)
-                    encoded_df = binary_encode(st.session_state.df.copy(), column_to_encode)
+                    encoded_df = binary_encode(.copy(), column_to_encode)
                     if encoded_df is not None:
                         st.write(f"Encoded Data (Binary Encoding on {column_to_encode}):")
                         st.dataframe(encoded_df, hide_index=True)
