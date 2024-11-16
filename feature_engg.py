@@ -228,8 +228,14 @@ def main():
                     # df = df.join(ohe)
                     # df.drop(column, axis=1, inplace=True)
                     # return df
-                  ohe = OneHotEncoder()
-                  df[column] = ohe.fit_transform(df[column])
+                  ohe = OneHotEncoder(sparse=False, drop='first')  # drop='first' to avoid dummy variable trap
+                  encoded_array = ohe.fit_transform(df[[column]])
+                  encoded_df = pd.DataFrame(encoded_array, columns=ohe.get_feature_names_out([column]))
+                  encoded_df.index = df.index  # Align the index with the original DataFrame
+              
+                  # Join the new columns to the original DataFrame and drop the original column
+                  df = df.join(encoded_df).drop(column, axis=1)
+                  
                   return df
 
                 # Function to apply Ordinal Encoding
