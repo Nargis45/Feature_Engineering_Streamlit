@@ -293,7 +293,6 @@ def main():
                 # Sample data if no file uploaded
                 if uploaded_file is None:
                     st.write("No file uploaded, using a sample dataset.")
-                    st.write("No file uploaded, using a sample dataset.")
                     data = {
                         'Fruit': ['Apple', 'Banana', 'Cherry', 'Apple', 'Banana', 'Cherry', 'Banana', 'Apple'],
                         'SpiceLevel': ['Mild', 'Medium', 'Hot', 'Mild', 'Medium', 'Hot', 'Mild', 'Medium'],
