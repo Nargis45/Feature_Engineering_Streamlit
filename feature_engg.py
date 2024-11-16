@@ -223,13 +223,26 @@ def main():
                     return df
 
                 # Function to apply One-Hot Encoding
+                # def one_hot_encode(df, column):
+                #     # ohe = pd.get_dummies(df[column], drop_first=True)
+                #     # df = df.join(ohe)
+                #     # df.drop(column, axis=1, inplace=True)
+                #     # return df
+                #   ohe = OneHotEncoder(sparse=False, drop='first')  # drop='first' to avoid dummy variable trap
+                #   encoded_array = ohe.fit_transform(df[[column]])
+                #   encoded_df = pd.DataFrame(encoded_array, columns=ohe.get_feature_names_out([column]))
+                #   encoded_df.index = df.index  # Align the index with the original DataFrame
+              
+                #   # Join the new columns to the original DataFrame and drop the original column
+                #   df = df.join(encoded_df).drop(column, axis=1)
+                  
+                #   return df
                 def one_hot_encode(df, column):
-                    # ohe = pd.get_dummies(df[column], drop_first=True)
-                    # df = df.join(ohe)
-                    # df.drop(column, axis=1, inplace=True)
-                    # return df
-                  ohe = OneHotEncoder(sparse=False, drop='first')  # drop='first' to avoid dummy variable trap
-                  encoded_array = ohe.fit_transform(df[[column]])
+                  # Adjust for scikit-learn versions 1.2 and above
+                  ohe = OneHotEncoder(sparse_output=False, drop='first')  # Updated parameter name
+                  encoded_array = ohe.fit_transform(df[[column]])  # Pass as 2D array
+              
+                  # Create a DataFrame with the one-hot encoded columns
                   encoded_df = pd.DataFrame(encoded_array, columns=ohe.get_feature_names_out([column]))
                   encoded_df.index = df.index  # Align the index with the original DataFrame
               
