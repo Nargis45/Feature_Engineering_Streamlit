@@ -312,7 +312,7 @@ def main():
 
                 elif encoding_option == "Binary Encoding":
                     column_to_encode = st.selectbox("Select Column to Encode", st.session_state.df.columns)
-                    encoded_df = binary_encode(.copy(), column_to_encode)
+                    encoded_df = binary_encode(df.copy(), column_to_encode)
                     if encoded_df is not None:
                         st.write(f"Encoded Data (Binary Encoding on {column_to_encode}):")
                         st.dataframe(encoded_df, hide_index=True)
