@@ -300,7 +300,7 @@ def main():
                     column_to_encode = st.selectbox("Select Column to Encode", st.session_state.df.columns)
                     order = st.text_input("Enter the order for encoding (comma separated)", "Mild,Medium,Hot").split(',')
                     order = [x.strip() for x in order]  # Clean up the list
-                    encoded_df = ordinal_encode(.df.copy(), column_to_encode, order)
+                    encoded_df = ordinal_encode(df.copy(), column_to_encode, order)
                     st.write(f"Encoded Data (Ordinal Encoding on {column_to_encode}):")
                     st.dataframe(encoded_df, hide_index=True)
 
