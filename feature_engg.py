@@ -224,10 +224,13 @@ def main():
 
                 # Function to apply One-Hot Encoding
                 def one_hot_encode(df, column):
-                    ohe = pd.get_dummies(df[column], drop_first=True)
-                    df = df.join(ohe)
-                    df.drop(column, axis=1, inplace=True)
-                    return df
+                    # ohe = pd.get_dummies(df[column], drop_first=True)
+                    # df = df.join(ohe)
+                    # df.drop(column, axis=1, inplace=True)
+                    # return df
+                  ohe = OneHotEncoder()
+                  df[column] = ohe.fit_transform(df[column])
+                  return df
 
                 # Function to apply Ordinal Encoding
                 def ordinal_encode(df, column, order):
@@ -299,7 +302,7 @@ def main():
                     column_to_encode = st.selectbox("Select Column to Encode", df.columns)
                     encoded_df = one_hot_encode(df.copy(), column_to_encode)
                     st.write(f"Encoded Data (One-Hot Encoding on {column_to_encode}):")
-                    st.table(encoded_df)
+                    st.dataframe(encoded_df, hide_index=True)
 
                 elif encoding_option == "Ordinal Encoding":
                     column_to_encode = st.selectbox("Select Column to Encode", df.columns)
