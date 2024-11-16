@@ -7,6 +7,11 @@ import matplotlib.pyplot as plt
 # import seaborn as sns
 from streamlit_extras.stylable_container import stylable_container
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, MaxAbsScaler, RobustScaler
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OrdinalEncoder
+import time
+from category_encoders import BinaryEncoder, TargetEncoder
 
 def main():
               list_tabs = ["Encoding Techniques", "Feature Scaling"]
