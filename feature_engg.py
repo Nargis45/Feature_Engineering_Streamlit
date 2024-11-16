@@ -299,7 +299,7 @@ def main():
                     column_to_encode = st.selectbox("Select Column to Encode", df.columns)
                     encoded_df = one_hot_encode(df.copy(), column_to_encode)
                     st.write(f"Encoded Data (One-Hot Encoding on {column_to_encode}):")
-                    st.dataframe(encoded_df, hide_index=True)
+                    st.table(encoded_df, hide_index=True)
 
                 elif encoding_option == "Ordinal Encoding":
                     column_to_encode = st.selectbox("Select Column to Encode", df.columns)
