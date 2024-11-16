@@ -2,7 +2,7 @@ streamlit
 matplotlib==3.6.3
 plotly==5.14.1
 TIME-python
-time
+#time
 streamlit_extras
 st-annotated-text
 streamlit-card
