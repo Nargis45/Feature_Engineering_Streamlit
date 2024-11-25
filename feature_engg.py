@@ -19,7 +19,487 @@ def main():
               list_tabs = ["Outlier Detection", "Encoding Techniques", "Feature Scaling"]
               tab1, tab2, tab3 = st.tabs(list_tabs)
               with tab1:
-                pass
+                st.markdown("<h1 style='color: #1F77B4; font-size: 2.5em;'>Unmasking Outliers: The Hidden Stories in Your Data</h1>", unsafe_allow_html=True)
+                st.write("""**An outlier** is a data point that significantly differs from the majority of observations in a dataset. It can be much higher or lower than the other values and may indicate variability in the data or an experimental error.""")
+
+                st.write(
+                        """
+                        Imagine you are in a classroom where most students are between 4.5 and 5.5 feet tall. 
+                        But then, one student is **8** feet tall, and another is **2** feet tall. These students are 
+                        much different in height compared to the rest of the class. 
+                        In statistics, we call these unusual or extreme values **outliers**.
+                        """
+                    )
+                data = np.random.normal(5, 0.5, 28)  # Heights clustered around 5 feet
+                data = np.append(data, [8, 2]) # Adding Outliers
+
+                # Display data
+                st.write("Here’s a dataset of heights:")
+                st.dataframe(pd.DataFrame(data, columns=["Height"]).T, hide_index = True)
+
+                # Plot the data
+                fig, ax = plt.subplots(figsize=(6, 3))
+                ax.boxplot(data, vert=False, patch_artist=True)
+                ax.set_title("Boxplot Highlighting Outliers")
+                ax.set_xlabel("Height")
+                st.pyplot(fig)
+
+                # Explanation
+                st.write(
+                    """
+                    The boxplot above shows most of the heights clustered together in a range. The dots 
+                    outside the "box" are the **outliers**. These are the values that are far from the rest.
+                    """
+                )
+                # Interaction: Highlight or exclude outliers
+                show_outliers = st.checkbox("Highlight Outliers")
+                if show_outliers:
+                    mean = np.mean(data)
+                    std_dev = np.std(data)
+                    outliers = data[(data > mean + 3 * std_dev) | (data < mean - 3 * std_dev)]
+                    st.write("Outliers detected in the data:", outliers)
+
+                st.markdown("""
+                    ### Characteristics of Outliers
+
+                    1. **Extreme values**: 
+                    Outliers lie far away from the central tendency (mean, median, mode) of the data.
+                    
+                    2. **Influence on analysis**: 
+                    Outliers can skew statistical calculations, such as the mean and standard deviation, potentially leading to misleading results.
+                    
+                    3. **Impact on models**: 
+                    In predictive modeling, outliers may disproportionately affect regression lines, clustering, or classification boundaries.
+                    """)
+                
+                st.markdown("""
+                    ### Outlier Impact on Algorithms:
+                """)
+
+                data = {
+                    "Algorithm": [
+                        "Linear Regression", 
+                        "Logistic Regression", 
+                        "K-Means Clustering", 
+                        "PCA", 
+                        "Decision Trees", 
+                        "Random Forests", 
+                        "DBSCAN"
+                    ],
+                    "Outlier Impact": [
+                        "High", "High", "High", "High", 
+                        "Low", "Low", "Low"
+                    ],
+                    "Reason": [
+                        "Outliers greatly affect the line of best fit.",
+                        "Outliers can distort the calculations.",
+                        "Outliers pull the cluster centers away.",
+                        "Outliers dominate the variation in the data.",
+                        "Outliers don’t affect how the splits are made.",
+                        "Combines many trees, reducing outlier effects.",
+                        "Marks outliers as noise instead of clustering them."
+                    ]
+                }
+
+                # Convert to DataFrame
+                df = pd.DataFrame(data)
+
+                st.table(df)
+
+                st.markdown("""
+                    ### Outlier Treatment Techniques:
+                """)
+
+                st.write("""
+                    Outliers can negatively impact analysis or models, but they can also provide valuable insights. 
+                    Below are common techniques for handling outliers and when to use them.
+                    """)
+                
+                # Z-Score Explanation
+                st.subheader("Z-Score: Detecting Outliers in Normally Distributed Data")
+                st.write("**Formula:** Z = (X - μ) / σ")
+                st.write("Where:")
+                st.write("- X: Data point")
+                st.write("- μ: Mean of the dataset")
+                st.write("- σ: Standard deviation of the dataset")
+                st.write("""
+                - **Best For**: Data that follows a normal distribution.
+                - **Threshold**: Commonly, \( |Z| > 3 \).
+                """)
+
+                # Generate sample data for Z-Score visualization
+                np.random.seed(42)
+                data = np.random.normal(0, 1, 1000)
+                outliers = np.array([5, -5])  # Simulated outliers
+                data_with_outliers = np.concatenate([data, outliers])
+
+                # Plot Z-Score Visualization
+                fig, ax = plt.subplots(figsize=(8, 4))
+                ax.hist(data_with_outliers, bins=30, alpha=0.7, color='blue', label='Data')
+                ax.axvline(x=3, color='red', linestyle='--', label='Z = 3 (Threshold)')
+                ax.axvline(x=-3, color='red', linestyle='--')
+                ax.set_title("Z-Score Outlier Detection")
+                ax.set_xlabel("Value")
+                ax.set_ylabel("Frequency")
+                ax.legend()
+                st.pyplot(fig)
+
+                # IQR Explanation
+                st.subheader("IQR: Detecting Outliers in Skewed Data")
+                st.write("""
+                - **Definition**:
+                \[
+                IQR = Q3 - Q1
+                \]
+                Outliers are identified as:
+                - Below \( Q1 - 1.5 \ttimes IQR \)
+                - Above \( Q3 + 1.5 \ttimes IQR \)
+                - **Best For**: Data that is skewed or not normally distributed.
+                """)
+
+                # Generate sample data for IQR visualization
+                np.random.seed(42)
+                skewed_data = np.random.exponential(scale=1, size=1000)
+
+                # Calculate IQR
+                Q1 = np.percentile(skewed_data, 25)
+                Q3 = np.percentile(skewed_data, 75)
+                Q2 = np.percentile(skewed_data, 50)  # Median
+                IQR = Q3 - Q1
+                lower_bound = Q1 - 1.5 * IQR
+                upper_bound = Q3 + 1.5 * IQR
+
+                # Plot IQR Visualization with Q1, Q2, Q3 markers
+                fig, ax = plt.subplots(figsize=(8, 4))
+                ax.boxplot(skewed_data, vert=False, patch_artist=True, boxprops=dict(facecolor="blue", color="blue"))
+                ax.axvline(x=lower_bound, color='red', linestyle='--', label='Lower Bound')
+                ax.axvline(x=upper_bound, color='red', linestyle='--', label='Upper Bound')
+                ax.axvline(x=Q1, color='green', linestyle='-', label='Q1 (25th Percentile)')
+                ax.axvline(x=Q2, color='orange', linestyle='-', label='Q2 (50th Percentile - Median)')
+                ax.axvline(x=Q3, color='purple', linestyle='-', label='Q3 (75th Percentile)')
+
+                # Adding Labels
+                ax.text(Q1, 1.05, 'Q1', color='green', ha='center')
+                ax.text(Q2, 1.05, 'Q2', color='orange', ha='center')
+                ax.text(Q3, 1.05, 'Q3', color='purple', ha='center')
+
+                # Customize plot appearance
+                ax.set_title("IQR Outlier Detection with Q1, Q2, Q3")
+                ax.set_xlabel("Value")
+                ax.legend()
+                st.pyplot(fig)
+
+                
+                # Techniques Data
+                techniques = [
+                    {
+                        "Technique": "Removing Outliers",
+                        "Description": "Exclude outliers from the dataset.",
+                        "When to Use": "For errors, noise, or invalid data.",
+                        "Methods": "Z-Score (|Z| > 3), IQR (Q1 - 1.5 \ttimes IQR or Q3 + 1.5 \ttimes IQR)."
+                    },
+                    {
+                        "Technique": "Capping or Clipping",
+                        "Description": "Limit extreme values to fixed boundaries.",
+                        "When to Use": "When outliers are valid but need scaling.",
+                        "Methods": "Replace extremes with boundaries (e.g., 5th/95th percentiles)."
+                    },
+                    {
+                        "Technique": "Transforming Data",
+                        "Description": "Reduce the impact of extreme values through transformations.",
+                        "When to Use": "When valid outliers skew the data.",
+                        "Methods": "Log, square root, or Box-Cox transformations."
+                    },
+                    {
+                        "Technique": "Imputation",
+                        "Description": "Replace outliers with representative values.",
+                        "When to Use": "When removal or capping isn't suitable.",
+                        "Methods": "Use median, mean, or mode to replace outliers."
+                    },
+                    {
+                        "Technique": "Treating Outliers as a Separate Class",
+                        "Description": "Analyze outliers separately as anomalies.",
+                        "When to Use": "In anomaly or fraud detection.",
+                        "Methods": "Isolation Forest, DBSCAN, one-class SVM."
+                    },
+                    {
+                        "Technique": "Binning",
+                        "Description": "Group data into bins to minimize the effect of outliers.",
+                        "When to Use": "For categorical analysis or when precision isn't critical.",
+                        "Methods": "Create bins for data ranges and assign outliers to boundary bins."
+                    },
+                    {
+                        "Technique": "Ignoring Outliers",
+                        "Description": "Leave outliers as they are.",
+                        "When to Use": "When outliers are meaningful or rare phenomena.",
+                        "Methods": "Analyze separately to gain insights."
+                    }
+                ]
+
+                # Display techniques in Streamlit
+                for technique in techniques:
+                    st.subheader(technique["Technique"])
+                    st.write(f"**Description:** {technique['Description']}")
+                    st.write(f"**When to Use:** {technique['When to Use']}")
+                    st.write(f"**Methods:** {technique['Methods']}")
+                    st.markdown("---")  # Divider between techniques
+
+
+                # Generate base data
+                np.random.seed(42)
+                data = np.random.normal(0, 1, 1000)  # Normal distribution
+                outliers = np.array([5, -5, 6, -6])  # Simulated outliers
+                data_with_outliers = np.concatenate([data, outliers])
+
+                # Create a function for plotting
+                def plot_data(data, title="Data Visualization", xlabel="Value", ylabel="Frequency"):
+                    fig, ax = plt.subplots(figsize=(8, 4))
+                    sns.histplot(data, kde=True, ax=ax, color='skyblue')
+                    ax.set_title(title)
+                    ax.set_xlabel(xlabel)
+                    ax.set_ylabel(ylabel)
+                    st.pyplot(fig)
+
+                # Show original data with outliers
+                st.subheader("Try it yourself")
+                plot_data(data_with_outliers, title="Original Data with Outliers")
+
+                # Technique selection directly on the screen
+                st.subheader("Choose an Outlier Treatment Technique")
+                treatment_choice = st.selectbox(
+                    "Choose an outlier treatment technique:",
+                    ["None", "Remove Outliers", "Cap Outliers", "Transform Data", "Impute Outliers", "Treat Outliers as Class", "Binning", "Ignore Outliers"]
+                )
+
+                # Technique 1: Remove Outliers
+                if treatment_choice == "Remove Outliers":
+                    z_scores = stats.zscore(data_with_outliers)
+                    cleaned_data = data_with_outliers[np.abs(z_scores) < 3]
+                    st.subheader("Removing Outliers (Z-Score > 3)")
+                    plot_data(cleaned_data, title="Data after Removing Outliers")
+
+                # Technique 2: Cap Outliers
+                elif treatment_choice == "Cap Outliers":
+                    lower_cap = np.percentile(data_with_outliers, 5)
+                    upper_cap = np.percentile(data_with_outliers, 95)
+                    capped_data = np.clip(data_with_outliers, lower_cap, upper_cap)
+                    st.subheader("Capping or Clipping Outliers")
+                    plot_data(capped_data, title="Data after Capping Outliers")
+
+                # Technique 3: Transform Data (Log, Square Root)
+                elif treatment_choice == "Transform Data":
+                    transform_type = st.sidebar.selectbox("Choose transformation:", ["Log", "Square Root"])
+                    if transform_type == "Log":
+                        transformed_data = np.log1p(data_with_outliers)
+                        st.subheader("Log Transformation")
+                    else:
+                        transformed_data = np.sqrt(data_with_outliers)
+                        st.subheader("Square Root Transformation")
+                    plot_data(transformed_data, title=f"Data after {transform_type} Transformation")
+
+                # Technique 4: Impute Outliers
+                elif treatment_choice == "Impute Outliers":
+                    median_value = np.median(data_with_outliers)
+                    imputed_data = np.where(np.abs(stats.zscore(data_with_outliers)) > 3, median_value, data_with_outliers)
+                    st.subheader("Imputing Outliers with Median Value")
+                    plot_data(imputed_data, title="Data after Imputing Outliers")
+
+                # Technique 6: Treat Outliers as a Separate Class (Using DBSCAN)
+                elif treatment_choice == "Treat Outliers as Class":
+                    db = DBSCAN(eps=0.5, min_samples=5).fit(data_with_outliers.reshape(-1, 1))
+                    labels = db.labels_
+                    outlier_data = data_with_outliers[labels == -1]
+                    st.subheader("Treat Outliers as Separate Class")
+                    plot_data(outlier_data, title="Detected Outliers by DBSCAN")
+
+                # Technique 7: Binning
+                elif treatment_choice == "Binning":
+                    bins = np.linspace(min(data_with_outliers), max(data_with_outliers), 10)
+                    binned_data = np.digitize(data_with_outliers, bins)
+                    st.subheader("Binning Outliers")
+                    plot_data(binned_data, title="Data after Binning")
+
+                # Technique 8: Ignore Outliers
+                elif treatment_choice == "Ignore Outliers":
+                    st.subheader("Ignoring Outliers")
+                    plot_data(data_with_outliers, title="Data with Ignored Outliers")
+
+                # Showing summary of chosen technique
+                st.subheader(f"Chosen Technique: {treatment_choice}")
+                st.write("""
+                - **Removing Outliers**: Outliers are removed if their Z-score is greater than 3.
+                - **Capping or Clipping**: Outliers are replaced with the lower or upper 5th/95th percentiles.
+                - **Transforming Data**: Applying log or square root transformations reduces the impact of outliers.
+                - **Impute Outliers**: Outliers are replaced with the median value of the dataset.
+                - **Treat Outliers as a Separate Class**: Outliers are detected and treated as a separate class using DBSCAN.
+                - **Binning**: Data is divided into bins, reducing the impact of extreme values.
+                - **Ignore Outliers**: Outliers are left untouched in the dataset.
+                """)
+
+                # Conclusion Section
+                st.subheader("Conclusion")
+
+                st.write("""
+                Outliers are a natural part of any dataset and can arise due to various reasons, such as data entry errors, rare events, or unique characteristics. While outliers may provide valuable insights into extreme events or anomalies, they can also distort statistical analysis and impact the performance of machine learning models.
+
+                Choosing the right technique for handling outliers depends on the type of data, the model you're using, and the goal of your analysis. Whether it's removing outliers, capping their values, transforming the data, or using robust methods that reduce their impact, each approach has its benefits and trade-offs.
+
+                It's important to remember that not all outliers should be treated the same way. In some cases, they may contain important information, while in others, they may simply be noise that needs to be addressed. By carefully considering the impact of outliers on your analysis and model, you can ensure more accurate and reliable results.
+
+                As always, experimenting with different techniques and visualizing the effects can help you make informed decisions. Ultimately, the choice of outlier treatment should align with the objectives of your project, ensuring that the insights derived are as accurate and meaningful as possible.
+                """)
+
+                st.divider()
+                ## Practice Questions on Outliers
+                st.subheader("Practice Questions:")
+
+                with st.expander("Outlier Detection Questions:"):
+                    questions = [
+                        {
+                            "question": "What is the purpose of detecting outliers in a dataset?",
+                            "options": [
+                                "To identify errors or anomalies in data",
+                                "To increase the variability of the dataset",
+                                "To find the highest values in the data",
+                                "To adjust the data distribution"
+                            ],
+                            "correct_answer": "To identify errors or anomalies in data"
+                        },
+                        {
+                            "question": "Which of the following methods is commonly used to detect outliers?",
+                            "options": [
+                                "Z-score",
+                                "K-means clustering",
+                                "Principal Component Analysis (PCA)",
+                                "Hierarchical clustering"
+                            ],
+                            "correct_answer": "Z-score"
+                        },
+                        {
+                            "question": "If a Z-score of a data point is greater than 3 or less than -3, what does this indicate?",
+                            "options": [
+                                "The data point is likely an outlier",
+                                "The data point is part of the normal distribution",
+                                "The data point is a central value",
+                                "The data point needs further investigation"
+                            ],
+                            "correct_answer": "The data point is likely an outlier"
+                        },
+                        {
+                            "question": "What is the IQR method for outlier detection based on?",
+                            "options": [
+                                "The difference between the 25th percentile (Q1) and the 75th percentile (Q3)",
+                                "The difference between the mean and standard deviation",
+                                "The minimum and maximum values in the dataset",
+                                "The median of the dataset"
+                            ],
+                            "correct_answer": "The difference between the 25th percentile (Q1) and the 75th percentile (Q3)"
+                        },
+                        {
+                            "question": "Which of the following is the most appropriate method for dealing with outliers in a dataset?",
+                            "options": [
+                                "Removing the outliers",
+                                "Replacing outliers with the mean",
+                                "Transforming the data",
+                                "Imputing missing values"
+                            ],
+                            "correct_answer": "Transforming the data"
+                        },
+                        {
+                            "question": "When applying the IQR method, which of the following is considered an outlier?",
+                            "options": [
+                                "Any data point outside the range of (Q1 - 1.5*IQR, Q3 + 1.5*IQR)",
+                                "Any data point above the mean",
+                                "Any data point above Q3",
+                                "Any data point within 1 standard deviation"
+                            ],
+                            "correct_answer": "Any data point outside the range of (Q1 - 1.5*IQR, Q3 + 1.5*IQR)"
+                        },
+                        {
+                            "question": "How can transforming the data help in handling outliers?",
+                            "options": [
+                                "It makes the data more normally distributed",
+                                "It increases the number of outliers",
+                                "It reduces the data variability",
+                                "It removes all outliers from the dataset"
+                            ],
+                            "correct_answer": "It makes the data more normally distributed"
+                        },
+                        {
+                            "question": "Which of the following is a common transformation to handle outliers?",
+                            "options": [
+                                "Logarithmic transformation",
+                                "Exponential transformation",
+                                "Square root transformation",
+                                "All of the above"
+                            ],
+                            "correct_answer": "Logarithmic transformation"
+                        },
+                        {
+                            "question": "Which of the following techniques is NOT typically used for detecting outliers?",
+                            "options": [
+                                "Boxplot",
+                                "Scatter plot",
+                                "Histogram",
+                                "K-means clustering"
+                            ],
+                            "correct_answer": "K-means clustering"
+                        },
+                        {
+                            "question": "What action should you take if you identify outliers that cannot be removed or transformed?",
+                            "options": [
+                                "Investigate if they represent a specific group or event",
+                                "Ignore them and continue with the analysis",
+                                "Treat them as missing values",
+                                "Automatically remove them from the dataset"
+                            ],
+                            "correct_answer": "Investigate if they represent a specific group or event"
+                        }
+                    ]
+
+                    # Function to display the quiz
+                    def display_quiz():
+                        score = 0
+                        responses = []
+                        incorrect_answers = []
+
+                        # Loop through each question and display it
+                        for i, question in enumerate(questions):
+                            st.caption(f"Question {i+1}:")
+                            
+                            # The key remains, but there's no locking of answers after selection
+                            answer = st.radio(question["question"], options=question["options"], key=f"qqq{i}")
+
+                            # Check the answer and store whether it's correct or not
+                            if answer:
+                                if answer == question["correct_answer"]:
+                                    responses.append(True)
+                                else:
+                                    responses.append(False)
+                                    incorrect_answers.append((i + 1, question["question"], answer, question["correct_answer"]))
+
+                        # Submit button to calculate score
+                        if st.button("Submit Test", key="qqq"):
+                            score = sum(responses)
+                            st.write(f"Your score is: {score}/10")
+                            st.session_state["test_done"] = True
+
+                            # Display incorrect answers with correct answers
+                            if incorrect_answers:
+                                st.write("You got the following questions wrong:")
+                                for question_number, question_text, user_answer, correct_answer in incorrect_answers:
+                                    st.divider()
+                                    st.write(f"Question {question_number}: {question_text}")
+                                    st.markdown(f"<span style='color:red'>Your Answer: {user_answer}</span>", unsafe_allow_html=True)
+                                    st.markdown(f"<span style='color:green'>Correct Answer: {correct_answer}</span>", unsafe_allow_html=True)
+                            else:
+                                st.write("Great job! You answered all questions correctly.")
+
+                    # Initialize session state for the first time
+                    if "test_done" not in st.session_state:
+                        st.session_state["test_done"] = False
+
+                    display_quiz()
               with tab2:
                 st.markdown("<h1 style='color: #1F77B4; font-size: 2.5em;'>Welcome to the Encoding Techniques Explorer!</h1>", unsafe_allow_html=True)
 
