@@ -4,7 +4,7 @@ import annotated_text
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-# import seaborn as sns
+import seaborn as sns
 from streamlit_extras.stylable_container import stylable_container
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, MaxAbsScaler, RobustScaler
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
