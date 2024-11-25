@@ -125,6 +125,7 @@ def main():
                 st.write("""
                 - **Best For**: Data that follows a normal distribution.
                 - **Threshold**: Commonly, \( |Z| > 3 \).
+                - This means that if the absolute value of the Z-score exceeds 3, the data point is considered an outlier.
                 """)
 
                 # Generate sample data for Z-Score visualization
