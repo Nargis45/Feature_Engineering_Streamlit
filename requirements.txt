@@ -25,5 +25,5 @@ requests
 scikit-learn
 category-encoders
 seaborn
-scipy==1.10.0
+scipy
 
