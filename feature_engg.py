@@ -4,7 +4,7 @@ import annotated_text
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn
+import seaborn as sns
 from streamlit_extras.stylable_container import stylable_container
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, MaxAbsScaler, RobustScaler
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
@@ -256,7 +256,7 @@ def main():
                 # Create a function for plotting
                 def plot_data(data, title="Data Visualization", xlabel="Value", ylabel="Frequency"):
                     fig, ax = plt.subplots(figsize=(8, 4))
-                    seaborn.histplot(data, kde=True, ax=ax, color='skyblue')
+                    sns.histplot(data, kde=True, ax=ax, color='skyblue')
                     ax.set_title(title)
                     ax.set_xlabel(xlabel)
                     ax.set_ylabel(ylabel)
