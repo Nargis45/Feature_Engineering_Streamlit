@@ -12,11 +12,15 @@ from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OrdinalEncoder
 import time
 from category_encoders import BinaryEncoder, TargetEncoder
+from sklearn.cluster import DBSCAN
+from scipy import stats
 
 def main():
-              list_tabs = ["Encoding Techniques", "Feature Scaling"]
-              tab1, tab2 = st.tabs(list_tabs)
+              list_tabs = ["Outlier Detection", "Encoding Techniques", "Feature Scaling"]
+              tab1, tab2, tab3 = st.tabs(list_tabs)
               with tab1:
+                pass
+              with tab2:
                 st.markdown("<h1 style='color: #1F77B4; font-size: 2.5em;'>Welcome to the Encoding Techniques Explorer!</h1>", unsafe_allow_html=True)
 
                 # st.title("Welcome to the Encoding Techniques Explorer!")
@@ -601,7 +605,7 @@ def main():
                         st.session_state["test_done"] = False
 
                     display_quiz()
-              with tab2:
+              with tab3:
                 st.subheader("Feature scaling is a technique to standardize the independent features present in the data in a fixed range")
                 st.write("### Types of Feature Scaling:")
                 with st.expander("1. Standardization"):
