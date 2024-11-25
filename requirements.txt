@@ -25,5 +25,6 @@ requests
 scikit-learn
 category-encoders
 seaborn
+seaborn[stats]
 scipy==1.10.0
 
