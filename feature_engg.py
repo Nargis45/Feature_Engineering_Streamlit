@@ -153,9 +153,10 @@ def main():
                 IQR = Q3 - Q1
                 \]
                 Outliers are identified as:
-                - Below \( Q1 - 1.5 \ttimes IQR \)
-                - Above \( Q3 + 1.5 \ttimes IQR \)
+                - **Lower Bound** \( Q1 - 1.5 \ttimes IQR \)
+                - **Upper Bound** \( Q3 + 1.5 \ttimes IQR \)
                 - **Best For**: Data that is skewed or not normally distributed.
+                - Anything that falls outside these boundaries (below the lower bound or above the upper bound) is considered an outlier.
                 """)
 
                 # Generate sample data for IQR visualization
