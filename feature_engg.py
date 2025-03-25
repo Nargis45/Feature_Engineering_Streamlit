@@ -1526,7 +1526,7 @@ def main():
                         """)
 
                     with stylable_container(
-                        key="view",
+                        key="view333",
                         css_styles="""
                         button {
                         background-color: #FF7F50;
@@ -1602,7 +1602,7 @@ def main():
                         """)
 
                     with stylable_container(
-                        key="view",
+                        key="view444",
                         css_styles="""
                         button {
                         background-color: #FF7F50;
