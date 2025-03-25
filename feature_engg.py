@@ -1373,7 +1373,7 @@ def main():
                         """)
 
                     with stylable_container(
-                        key="view",
+                        key="view111",
                         css_styles="""
                         button {
                         background-color: #FF7F50;
